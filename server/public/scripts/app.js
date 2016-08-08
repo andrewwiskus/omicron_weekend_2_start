@@ -1,6 +1,6 @@
 $(document).ready(function() {
     //ABSTRACTION ON POINT :)
-
+    //no animations cuz im a minimilist. ? :)
 
 
 
@@ -12,7 +12,15 @@ $(document).ready(function() {
         loadData();
     }
 
+
+
     //listeners
+    $('.progressBar').on("click", ".progressBox", function() {
+        console.log($(this).data("id"));
+        var student = $(this).data("id");
+        chooseStudent(student);
+    });
+
     $('.navBar').on("click", "button", function() {
         switch (this.id) {
             case "next":
@@ -47,7 +55,7 @@ $(document).ready(function() {
     //nav bar functionality
     function buildNavBar() {
         for (var i = 0; i < 17; i++) {
-            $('.progressBar').append("<div id = 'student" + i + "' class='progressBox'></div>");
+            $('.progressBar').append("<div id = 'student" + i + "' data-id='" + i + "' class='progressBox'></div>");
         }
 
         //initiations selection style to first student
@@ -55,9 +63,9 @@ $(document).ready(function() {
     }
 
     function updateNavBar(index) {
-        console.log("works?!?!");
-        console.log("YEA?", index);
-        console.log("THIS? #student" + index);
+        // console.log("works?!?!");
+        // console.log("YEA?", index);
+        // console.log("THIS? #student" + index);
         $('#student' + index).toggleClass("selected");
     }
 
@@ -70,6 +78,7 @@ $(document).ready(function() {
     function endInterval() {
         clearInterval(navInterval);
     }
+
 
 
     //functionality to append dom using an array of students
@@ -127,6 +136,16 @@ $(document).ready(function() {
         }
         loadData();
         updateNavBar(currentStudent);
+    }
+
+    function chooseStudent(newStudent) {
+        endInterval();
+        startInterval();
+        updateNavBar(currentStudent);
+        currentStudent = newStudent;
+        loadData();
+        updateNavBar(currentStudent);
+
     }
 
 
